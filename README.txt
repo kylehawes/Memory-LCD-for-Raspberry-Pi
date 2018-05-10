@@ -97,12 +97,10 @@ must be changed to match the dimensions of your particular model of Memory LCD i
 
 (The boards I am selling are either (WxH) 96x96 pixels, 128x128 pixels, or 400x240 pixels.)
 
-If everything has gone to plan, change to the demo directory within the Memory-LCD-for-Raspberry-Pi-master/ directory and compile, link and run the demo program
+If everything has gone to plan, compile, link and run the demo program
 
-cd ~/Memory-LCD-for-Raspberry-Pi-master/examples/demo/
-g++ -c -g -Wall -funsigned-char demo.cpp ../../MemoryLCD.cpp
-g++ -o demo demo.o MemoryLCD.o  -l bcm2835 -l pthread
-sudo ./demo
+make
+sudo make run or sudo ./demo
 
 If there were no compile or linking errors, and the pi is connected to the Memory LCD breakout board as described above, you should see the demo start with a side scrolling sinewave.
 
