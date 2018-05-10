@@ -60,7 +60,7 @@ int main() {
     // print expanding and contracting circles
     unsigned int originX = lcdWidth/2;
     unsigned int originY = lcdHeight/2;
-    unsigned int expandingCircleRadius = (lcdHeight/2)*0.9;
+    unsigned int expandingCircleRadius = min(lcdHeight,lcdWidth)/2*0.9;
     for(unsigned int repeat = 0; repeat < 2; repeat++) {
       for(unsigned int radius = 5; radius < expandingCircleRadius; radius++) {
 	for(unsigned int y = originY - radius; y <= originY; y++) {
@@ -103,10 +103,11 @@ int main() {
     
     // print circling circle
     numRepetitions = 4;
-    unsigned int sweepRadius = (lcdHeight/2)*0.8;
+    unsigned int minHalf = min(lcdHeight,lcdWidth)/2;
+    unsigned int sweepRadius = minHalf*0.8;
     unsigned int sweepOriginX = lcdWidth/2;
     unsigned int sweepOriginY = lcdHeight/2;
-    unsigned int circleRadius = 0.7*((lcdHeight/2)-sweepRadius);
+    unsigned int circleRadius = 0.7*(minHalf-sweepRadius);
     for(float rads=0; rads<6.2824*numRepetitions; rads += 0.04) {
       // calculate circle centre
       unsigned int circleOriginX = sweepOriginX + cos(rads)*sweepRadius;
@@ -133,18 +134,21 @@ int main() {
     
     
     // print triangles
+    unsigned int diff = max(lcdWidth,lcdHeight) - min(lcdWidth,lcdHeight);
+    unsigned int offsety = (lcdHeight>lcdWidth)?diff/2:0;
+    unsigned int offsetx = (lcdWidth>lcdHeight)?diff/2:0;
     numRepetitions = 4;
     toggle = false;
     for(char i=0; i< numRepetitions; i++) {
-      for(unsigned int y=1; y<=lcdHeight; y++) {
-	for(unsigned int x=1; x<y+((lcdWidth-lcdHeight)/2); x++) {
+      for(unsigned int y=1+offsety; y<=lcdHeight-offsety; y++) {
+	for(unsigned int x=1; x<y-offsety+offsetx; x++) {
 	  memLcd.writePixelToLineBuffer(x, toggle);
 	}
 	memLcd.writeLineBufferToDisplay(y);
 	usleep(5000);
       }
-      for(unsigned int y=lcdHeight; y>0; y--) {
-	for(unsigned int x=lcdWidth; x>y+((lcdWidth-lcdHeight)/2); x--) {
+      for(unsigned int y=lcdHeight-offsety; y>0+offsety; y--) {
+	for(unsigned int x=lcdWidth; x>y-offsety+offsetx; x--) {
 	  memLcd.writePixelToLineBuffer(x, toggle);
 	}
 	memLcd.writeLineBufferToDisplay(y);
@@ -181,7 +185,7 @@ int main() {
 	    toggle = true;
       }
       usleep(500000);
-      if(toggle)
+      if(i%2)
 	toggle = false;
       else
 	toggle = true;
