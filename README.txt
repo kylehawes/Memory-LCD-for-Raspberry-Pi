@@ -2,6 +2,12 @@ Author: Richard Leszczynski
 email:  richard@makerdyne.com
 web:	www.MakerDyne.com/memorylcds/
 
+Modified By: Kyle Hawes
+Mods:
+	* Update demo for displays where height > width
+	* Add makefile for easier compilation
+	* Update links to v1.55 of the bcm2835 library
+
 
 Basic class for Sharp Memory LCD control to accompany my Sharp Memory LCD Breakout Boards.
 
@@ -56,12 +62,12 @@ Download the zip file from GitHub and extract it a directory of your choice with
 If you use the commands:
 
 cd~
-wget https://github.com/MakerDyne/Memory-LCD-for-Raspberry-Pi/archive/master.zip
+wget https://github.com/kylehawes/Memory-LCD-for-Raspberry-Pi/archive/master.zip
 unzip master.zip
 
 alternatively, the wget and unzip commands can be replaced within
 
-git clone https://github.com/MakerDyne/Memory-LCD-for-Raspberry-Pi.github
+git clone https://github.com/kylehawes/Memory-LCD-for-Raspberry-Pi.git
 
 which will grab the code direct from github ('sudo aptitude install git' if you don't have git installed)
 
@@ -80,9 +86,9 @@ The library can be downloaded from http://www.airspayce.com/mikem/bcm2835/index.
 Use the following commands to download and install it (NB: version number may change, check website for latest version before entering these commands):
 
 cd ~
-wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.25.tar.gz
-tar zxvf bcm2835-1.25.tar.gz
-cd bcm2835-1.25
+wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.55.tar.gz
+tar zxvf bcm2835-1.55.tar.gz
+cd bcm2835-1.55
 ./configure
 make
 sudo make check
