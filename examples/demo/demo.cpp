@@ -178,11 +178,12 @@ int main() {
 	}
 	memLcd.writeLineBufferToDisplay(y);
 	memLcd.clearLineBuffer();
-	if(y%8 == 0)
+	if(y%8 == 0) {
 	  if(toggle)
 	    toggle = false;
 	  else
 	    toggle = true;
+	}
       }
       usleep(500000);
       if(i%2)
@@ -239,7 +240,7 @@ int main() {
     // demonstrates use of writeByteToLineBuffer and writeLineBufferToDisplay
     numRepetitions = 4;
     for(char i=0; i<numRepetitions; i++) {
-      char colour = 0x00;
+      // char colour = 0x00;
       if(i%2 == 0)
 	memLcd.setLineBufferBlack();
       else
@@ -257,8 +258,8 @@ int main() {
     char lineThickness = 10;
     for(unsigned int i=0; i<numRepetitions; i++) {
       for(char y=1; y<lcdHeight+lineThickness+1; y++) {  // lcdHeight+10 to give the line some thickness
-	int blackLine = y;
-	int whiteLine = y - lineThickness;
+	unsigned int blackLine = y;
+	unsigned int whiteLine = y - lineThickness;
 	if(whiteLine > 0 && whiteLine < lcdHeight+1) {
 	  memLcd.setLineBufferWhite();
 	  memLcd.writeLineBufferToDisplay(whiteLine);

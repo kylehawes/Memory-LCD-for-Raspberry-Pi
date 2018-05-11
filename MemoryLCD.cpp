@@ -31,7 +31,7 @@ MemoryLCD::MemoryLCD(char SCSpin, char DISPpin, char EXTCOMINpin, bool useEXTCOM
   // NB: this leaves the Memory LCD vulnerable if an image is left displayed after the program stops.
   pthread_t threadId;
   if(enablePWM) {
-    if(pthread_create(&threadId, NULL, &hardToggleVCOM, (void *)EXTCOMIN)) {
+    if(pthread_create(&threadId, NULL, &hardToggleVCOM, reinterpret_cast<void*>(EXTCOMIN))) {
       cout << "Error creating EXTCOMIN thread" << endl;
     } else {
       cout << "PWM thread started successfully" << endl;
@@ -127,7 +127,7 @@ void MemoryLCD::writePixelToLineBuffer(unsigned int pixel, bool isWhite) {
 }
 
 
-void MemoryLCD::writeByteToLineBuffer(char byteNumber, char byteToWrite) {
+void MemoryLCD::writeByteToLineBuffer(unsigned char byteNumber, char byteToWrite) {
 // char location expected in the fn args has been extrapolated from the pixel location
 // format (see above), so chars go from 1 to LCDWIDTH/8, not from 0
   if(byteNumber <= LCDWIDTH/8 && byteNumber != 0) {
@@ -137,7 +137,7 @@ void MemoryLCD::writeByteToLineBuffer(char byteNumber, char byteToWrite) {
 }
 
 
-void MemoryLCD::copyByteWithinLineBuffer(char sourceByte, char destinationByte) {
+void MemoryLCD::copyByteWithinLineBuffer(unsigned char sourceByte, unsigned char destinationByte) {
   if(sourceByte <= LCDWIDTH/8 && destinationByte <= LCDWIDTH/8) {
     sourceByte -= 1;
     destinationByte -= 1;
@@ -147,14 +147,14 @@ void MemoryLCD::copyByteWithinLineBuffer(char sourceByte, char destinationByte) 
 
 
 void MemoryLCD::setLineBufferBlack(void) {
-  for(char i=0; i<LCDWIDTH/8; i++) {
+  for(unsigned char i=0; i<LCDWIDTH/8; i++) {
     lineBuffer[i] = 0x00;
   }
 }
 
 
 void MemoryLCD::setLineBufferWhite(void) {
-  for(char i=0; i<LCDWIDTH/8; i++) {
+  for(unsigned char i=0; i<LCDWIDTH/8; i++) {
     lineBuffer[i] = 0xFF;
   }
 }
@@ -195,14 +195,14 @@ void MemoryLCD::writeByteToFrameBuffer(char byteNumber, char lineNumber, char by
 
 
 void MemoryLCD::setFrameBufferBlack() {
-  for(char i=0; i<LCDWIDTH*LCDHEIGHT/8; i++) {
+  for(unsigned char i=0; i<LCDWIDTH*LCDHEIGHT/8; i++) {
     frameBuffer[i] = 0x00;
   }
 }
 
 
 void MemoryLCD::setFrameBufferWhite() {
-  for(char i=0; i<LCDWIDTH*LCDHEIGHT/8; i++) {
+  for(unsigned char i=0; i<LCDWIDTH*LCDHEIGHT/8; i++) {
     frameBuffer[i] = 0xFF;
   }
 }

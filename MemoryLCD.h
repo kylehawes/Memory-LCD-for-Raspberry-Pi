@@ -7,8 +7,8 @@
 #include <iostream>
 
 // Memory LCD pixel dimensions - ALTER ACCORDING TO YOUR PARTICULAR LCD MODEL
-#define LCDWIDTH		(96)
-#define LCDHEIGHT		(96)
+#define LCDWIDTH		(400)
+#define LCDHEIGHT		(240)
 
 // Delay constants for LCD timing   // (Datasheet values)
 #define PWRUP_DISP_DELAY	40  // (>30us)
@@ -26,8 +26,8 @@ class MemoryLCD {
     void writeMultipleLinesToDisplay(char lineNumber, char numLines, char *lines);
     // Write data to line buffer
     void writePixelToLineBuffer(unsigned int pixel, bool isWhite);
-    void writeByteToLineBuffer(char byteNumber, char byteToWrite);
-    void copyByteWithinLineBuffer(char sourceByte, char destinationByte);
+    void writeByteToLineBuffer(unsigned char byteNumber, char byteToWrite);
+    void copyByteWithinLineBuffer(unsigned char sourceByte, unsigned char destinationByte);
     void setLineBufferBlack();
     void setLineBufferWhite();
     // write data from line buffer to display
