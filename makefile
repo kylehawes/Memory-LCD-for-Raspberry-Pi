@@ -16,4 +16,4 @@ clean:
 	rm -rf build/ demo
 
 run:
-	./build/demo
+	./demo
